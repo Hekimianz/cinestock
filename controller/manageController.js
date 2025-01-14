@@ -1,96 +1,44 @@
-const movies = [
-  {
-    title: "The Shawshank Redemption",
-    image: "https://placehold.co/200x300",
-    stock: 15,
-    genre: "Drama",
-    section: "Classics",
-    supplier: "Classic Films Ltd.",
-    tags: ["inspirational", "prison", "drama"],
-  },
-  {
-    title: "The Dark Knight",
-    image: "https://placehold.co/200x300",
-    stock: 8,
-    genre: "Action",
-    section: "Blockbusters",
-    supplier: "Blockbuster Studios",
-    tags: ["superhero", "action", "crime"],
-  },
-  {
-    title: "Inception",
-    image: "https://placehold.co/200x300",
-    stock: 12,
-    genre: "Sci-Fi",
-    section: "Blockbusters",
-    supplier: "Dreamscape Distribution",
-    tags: ["mind-bending", "sci-fi", "thriller"],
-  },
-  {
-    title: "Pulp Fiction",
-    image: "https://placehold.co/200x300",
-    stock: 5,
-    genre: "Crime",
-    section: "Classics",
-    supplier: "Tarantino Productions",
-    tags: ["crime", "nonlinear", "dark humor"],
-  },
-  {
-    title: "The Godfather",
-    image: "https://placehold.co/200x300",
-    stock: 7,
-    genre: "Crime",
-    section: "Classics",
-    supplier: "Mafia Films Co.",
-    tags: ["mafia", "crime", "family"],
-  },
-  {
-    title: "Forrest Gump",
-    image: "https://placehold.co/200x300",
-    stock: 10,
-    genre: "Drama",
-    section: "Feel Good",
-    supplier: "Feel Good Films",
-    tags: ["inspirational", "comedy-drama", "romance"],
-  },
-  {
-    title: "The Matrix",
-    image: "https://placehold.co/200x300",
-    stock: 20,
-    genre: "Sci-Fi",
-    section: "Blockbusters",
-    supplier: "Cyber Films Ltd.",
-    tags: ["sci-fi", "action", "dystopian"],
-  },
-  {
-    title: "Interstellar",
-    image: "https://placehold.co/200x300",
-    stock: 9,
-    genre: "Sci-Fi",
-    section: "New Releases",
-    supplier: "Cosmic Studios",
-    tags: ["sci-fi", "space", "emotional"],
-  },
-  {
-    title: "Parasite",
-    image: "https://placehold.co/200x300",
-    stock: 6,
-    genre: "Thriller",
-    section: "International",
-    supplier: "Seoul Cinema Distribution",
-    tags: ["thriller", "social commentary", "dark comedy"],
-  },
-  {
-    title: "The Lion King",
-    image: "https://placehold.co/200x300",
-    stock: 25,
-    genre: "Animation",
-    section: "Family",
-    supplier: "Disney Films",
-    tags: ["family", "animation", "musical"],
-  },
-];
+const db = require("../db/queries");
 
-exports.manageGetAll = (req, res) => {
-  res.render("manage", { title: "CineStock - Inventory", movies: movies });
+exports.manageGetAll = async (req, res) => {
+  const movies = await db.getAllMovies();
+  const tags = await db.getAllTags();
+  res.render("manage", {
+    title: "CineStock - Inventory",
+    movies: movies,
+    searched: false,
+    movieSearched: "",
+    tags: tags,
+    selectedTags: tags || [],
+  });
+};
+
+exports.manageGetMovieByName = async (req, res) => {
+  const { title } = req.query;
+  const movies = await db.getMovieByName(title);
+  const tags = await db.getAllTags();
+  res.render("manage", {
+    title: "CineStock - Inventory",
+    movies: movies,
+    searched: !!title,
+    movieSearched: title,
+    tags: tags,
+    selectedTags: tags || [],
+  });
+};
+
+exports.manageGetFiltered = async (req, res) => {
+  const { title, tags } = req.query;
+
+  const movies = await db.getFilteredMovies(title, tags);
+  const allTags = await db.getAllTags();
+
+  res.render("manage", {
+    title: "CineStock - Inventory",
+    movies: movies,
+    searched: !!title,
+    movieSearched: title || "",
+    tags: allTags,
+    selectedTags: tags || [],
+  });
 };

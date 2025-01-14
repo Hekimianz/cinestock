@@ -13,17 +13,52 @@
 
     <link rel="icon" href="/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./manageScripts.js" defer></script>
   </head>
   <body>
     <header>
-      <form class="search--form" action="/manage" method="GET">
-        <input type="text" placeholder="Movie title" />
-        <button class="search--btn"><img src="./search.png" alt="" /></button>
-      </form>
+      <div class="utility-bar">
+        <form id="filters" class="search--form" action="/manage" method="GET">
+          <input
+            type="text"
+            name="title"
+            placeholder="Movie title"
+            value="<%= movieSearched || '' %>"
+          />
+          <button class="search--btn"><img src="./search.png" alt="" /></button>
+        </form>
+
+        <button class="filter--btn">
+          <img src="./filter.png" alt="filter icon" />
+        </button>
+      </div>
+
+      <% if (tags && tags.length > 0) { %>
+      <div class="filters--cont hidden">
+        <% tags.forEach(tag => { %>
+        <div class="filter--labelInput">
+          <input type="checkbox" form="filters" name="tags" value="<%= tag.name
+          %>" id="tag-<%= tag.name %>" <%= selectedTags &&
+          selectedTags.includes(tag.name) ? 'checked' : '' %> />
+          <label for="tag-<%= tag.name %>"
+            ><%= tag.name[0].toUpperCase() + tag.name.slice(1) %></label
+          >
+        </div>
+        <% }); %>
+      </div>
+      <% } %>
     </header>
+
+    <% if (searched) { %>
+    <a class="link--allMovies" href="/manage">View All Movies</a>
+    <% } %>
+
     <section class="items--cont">
-      <% for (let i = 0; i < movies.length; i++) { %> <%- include("item", {
-      movie: movies[i] }) %> <% } %>
+      <% if (movies && movies.length > 0) { %> <% for (let i = 0; i <
+      movies.length; i++) { %> <%- include("item", { movie: movies[i] }) %> <% }
+      %> <% } else { %>
+      <p class="empty-results">No movies found with the given filters.</p>
+      <% } %>
     </section>
   </body>
 </html>
