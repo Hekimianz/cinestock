@@ -21,7 +21,7 @@ exports.manageGetMovieByName = async (req, res) => {
   res.render("manage", {
     title: "CineStock - Inventory",
     movies: movies,
-    searched: !!title,
+    searched: true,
     movieSearched: title,
     tags: tags,
     selectedTags: tags || [],
@@ -37,7 +37,7 @@ exports.manageGetFiltered = async (req, res) => {
   res.render("manage", {
     title: "CineStock - Inventory",
     movies: movies,
-    searched: !!title,
+    searched: true,
     movieSearched: title || "",
     tags: allTags,
     selectedTags: tags || [],

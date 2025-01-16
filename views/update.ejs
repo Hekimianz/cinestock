@@ -10,11 +10,82 @@
       href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-
     <link rel="icon" href="/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/movieScripts.js" defer></script>
   </head>
   <body>
-    Update movie
+    <div class="error--notification">
+      <p><%= errorMsg%></p>
+    </div>
+    <section class="update--cont">
+      <form id="updateForm" action="/movie/update/<%= movie.id %>" method="POST">
+        <div class="update--field">
+          <label for="title" class="bold">Title:</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value="<%= movie.title %>"
+            required
+          />
+        </div>
+        
+        <!-- Genre Dropdown -->
+       <div class="update--field">
+          <label for="genre_id" class="bold">Genre:</label>
+          <select name="genre_id" id="genre_id" required>
+          <% genres.forEach(function(genre) { %>
+            <option value="<%= genre.id %>" <%= movie.genre === genre.name ? "selected" : "" %>><%= genre.name %></option>
+          <% }); %>
+          </select>
+      </div>
+
+        
+        <!-- Section Dropdown -->
+        <div class="update--field">
+          <label for="section_id" class="bold">Section:</label>
+          <select name="section_id" id="section_id" required>
+            <% sections.forEach(function(section) { %>
+              <option value="<%= section.id %>" <%= movie.section == section.name ? 'selected' : '' %>><%= section.name %></option>
+            <% }); %>
+          </select>
+        </div>
+        
+        <!-- Supplier Dropdown -->
+        <div class="update--field">
+          <label for="supplier_id" class="bold">Supplier:</label>
+          <select name="supplier_id" id="supplier_id" required>
+            <% suppliers.forEach(function(supplier) { %>
+              <option value="<%= supplier.id %>" <%= movie.supplier == supplier.name ? 'selected' : '' %>><%= supplier.name %></option>
+            <% }); %>
+          </select>
+        </div>
+        
+        <div class="update--field">
+          <label for="stock" class="bold">Stock:</label>
+          <input
+            type="number"
+            name="stock"
+            id="stock"
+            value="<%= movie.stock %>"
+            required
+          />
+        </div>
+        
+        <div class="update--field">
+          <label for="image" class="bold">Poster:</label>
+          <input
+            type="url"
+            name="image_url"
+            id="image"
+            value="<%= movie.image_url %>"
+          />
+        </div>
+        
+        <button class="update--btn">Update</button>
+      </form>
+      <a href="/movie/id/<%=movie.id%>">Go Back</a>
+    </section>
   </body>
 </html>

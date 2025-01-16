@@ -201,7 +201,8 @@ header input {
   border: 1px solid #5e2bff;
 }
 
-.link--allMovies {
+.link--allMovies,
+.update--btn {
   color: #5e2bff;
   font-size: 1.2rem;
   text-decoration: none;
@@ -463,6 +464,65 @@ header input {
   opacity: 1;
   visibility: visible;
   animation: slideDown 0.5s ease-out;
+}
+
+.update--cont {
+  background-color: #dff3e4;
+  color: #222725;
+  border: 2px solid #5e2bff;
+  padding: 2rem;
+  border-radius: 10px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+}
+
+.update--field {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
+.update--field input,
+form:has(.update--btn) select {
+  width: 100%;
+  border: 0.5px solid #222725;
+  border-radius: 2px;
+  padding: 2px;
+}
+
+.update--btn {
+  background-color: #222725;
+  color: #dff3e4;
+  align-self: center;
+  border: 2px solid #5e2bff;
+}
+
+form:has(.update--btn) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+
+form:has(.update--btn) select {
+  text-align: center;
+  background-color: #fff;
+}
+
+.update--btn:hover {
+  transform: translateY(-2px);
+  background-color: #5e2bff;
+}
+
+.update--btn:active {
+  transform: translateY(2px);
 }
 
 @keyframes slideDown {

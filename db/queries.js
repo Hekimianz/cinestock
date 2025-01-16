@@ -17,7 +17,7 @@ async function getAllMovies() {
 async function getMovieByName(name) {
   try {
     const { rows } = await pool.query(
-      `SELECT movies.title, movies.image_url, movies.stock, suppliers.name AS supplier FROM movies
+      `SELECT movies.title, movies.id, movies.image_url, movies.stock, suppliers.name AS supplier FROM movies
        INNER JOIN suppliers ON movies.supplier_id = suppliers.id
        WHERE movies.title ILIKE '%' || $1 || '%';
       `,
@@ -42,7 +42,7 @@ async function getAllTags() {
 async function getFilteredMovies(title, tags) {
   try {
     let query = `
-      SELECT DISTINCT movies.title, movies.image_url, movies.stock, suppliers.name AS supplier
+      SELECT DISTINCT movies.title, movies.id, movies.image_url, movies.stock, suppliers.name AS supplier
       FROM movies
       INNER JOIN suppliers ON movies.supplier_id = suppliers.id
       LEFT JOIN movie_tags ON movies.id = movie_tags.movie_id
@@ -95,10 +95,66 @@ async function getMovieById(id) {
   }
 }
 
+async function getAllGenres() {
+  try {
+    const { rows } = await pool.query(`SELECT * FROM genres`);
+    return rows;
+  } catch (err) {
+    console.error("Error getting genres:", err);
+    return [];
+  }
+}
+
+async function getAllSections() {
+  try {
+    const { rows } = await pool.query(`SELECT * FROM sections`);
+    return rows;
+  } catch (err) {
+    console.error("Error getting sections:", err);
+    return [];
+  }
+}
+
+async function getAllSuppliers() {
+  try {
+    const { rows } = await pool.query(`SELECT * FROM suppliers`);
+    return rows;
+  } catch (err) {
+    console.error("Error getting suppliers:", err);
+    return [];
+  }
+}
+
+async function updateMovie(id, movieData) {
+  try {
+    const { title, genre_id, section_id, supplier_id, stock, image_url } =
+      movieData;
+    await pool.query(
+      "UPDATE movies SET title = $1, genre_id = $2, section_id = $3, supplier_id = $4, stock = $5, image_url = $6 WHERE id = $7",
+      [title, genre_id, section_id, supplier_id, stock, image_url, id]
+    );
+  } catch (err) {
+    console.error("Error updating movie:", err);
+    throw err; // Re-throw the error to handle it in the controller
+  }
+}
+
+async function deleteMovie(id) {
+  try {
+    await pool.query("DELETE FROM movies where movies.id = $1", [id]);
+  } catch (err) {
+    console.error("Error deleting movie:", err);
+  }
+}
+
 module.exports = {
   getAllMovies,
   getMovieByName,
   getAllTags,
   getFilteredMovies,
   getMovieById,
+  getAllGenres,
+  getAllSections,
+  getAllSuppliers,
+  updateMovie,
 };
