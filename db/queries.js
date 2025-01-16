@@ -3,7 +3,7 @@ const pool = require("./pool");
 async function getAllMovies() {
   try {
     const { rows } = await pool.query(
-      `SELECT movies.title, movies.image_url, movies.stock, suppliers.name AS supplier FROM movies
+      `SELECT movies.title, movies.image_url, movies.stock, movies.id, suppliers.name AS supplier FROM movies
        INNER JOIN suppliers ON movies.supplier_id = suppliers.id;
       `
     );
@@ -75,9 +75,30 @@ async function getFilteredMovies(title, tags) {
   }
 }
 
+async function getMovieById(id) {
+  try {
+    const { rows } = await pool.query(
+      `SELECT movies.id, movies.title, movies.stock, movies.image_url, genres.name AS genre, sections.name AS section, string_agg(tags.name, ', ') AS tags, suppliers.name AS supplier FROM movies 
+                                        INNER JOIN genres ON movies.genre_id = genres.id
+                                        INNER JOIN sections ON movies.section_id = sections.id
+                                        INNER JOIN movie_tags ON movies.id = movie_tags.movie_id
+                                        INNER JOIN tags ON tags.id = movie_tags.tag_id
+                                        INNER JOIN suppliers ON movies.supplier_id = suppliers.id
+                                        WHERE movies.id = $1 GROUP BY movies.id, genres.name, sections.name, suppliers.name;`,
+      [id]
+    );
+
+    return rows;
+  } catch (err) {
+    console.error("Error fetching movie:", err);
+    return [];
+  }
+}
+
 module.exports = {
   getAllMovies,
   getMovieByName,
   getAllTags,
   getFilteredMovies,
+  getMovieById,
 };

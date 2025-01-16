@@ -1,4 +1,7 @@
-<section class="movie--card">
+<section
+  class="movie--card"
+  onclick="window.location.href='/movie/id/<%= movie.id %>'"
+>
   <h2 class="movie--title"><%=movie.title%></h2>
   <img
     class="movie--image"
@@ -7,5 +10,4 @@
   />
   <p class="movie--supplier">Supplier: <%= movie.supplier%></p>
   <p class="movie--stock">Stock: <%=movie.stock%></p>
-  <img class="edit--icon" src="./edit.png" alt="edit" />
 </section>

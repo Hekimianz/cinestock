@@ -3,6 +3,7 @@ const db = require("../db/queries");
 exports.manageGetAll = async (req, res) => {
   const movies = await db.getAllMovies();
   const tags = await db.getAllTags();
+
   res.render("manage", {
     title: "CineStock - Inventory",
     movies: movies,
