@@ -270,6 +270,8 @@ header input {
   gap: 20px;
   margin-top: auto;
   margin-bottom: auto;
+  border: 2px solid #5e2bff;
+  position: relative;
 }
 
 .single--title {
@@ -304,6 +306,143 @@ header input {
 .single--back:hover {
   transform: scale(1.1);
   text-shadow: 0.5px 2px 3.5px rgba(0, 0, 0, 0.2);
+}
+
+.single--edit {
+  width: 30px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: 0.2s opacity ease, 0.2s transform ease;
+}
+
+.single--edit:hover,
+.single--delete:hover,
+.close:hover {
+  filter: invert(22%) sepia(99%) saturate(6573%) hue-rotate(256deg)
+    brightness(101%) contrast(101%);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.single--delete:hover {
+  filter: invert(43%) sepia(21%) saturate(1647%) hue-rotate(314deg)
+    brightness(98%) contrast(97%);
+}
+
+.single--edit:active,
+.single--delete:active,
+.close:active {
+  transform: translateY(2px);
+}
+
+.single--delete {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 30px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: 0.2s opacity ease, 0.2s transform ease;
+}
+
+.update--password,
+.delete--password {
+  background-color: #3e1cad;
+  color: #dff3e4;
+  position: absolute;
+  padding: 2rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: 0.2s all ease;
+}
+
+.update--password form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.update--password input,
+.delete--password input {
+  background-color: #dff3e4;
+  border: none;
+  border-radius: 2px;
+  padding: 2px;
+}
+
+.update--password button,
+.delete--password button {
+  padding: 0.3rem 1rem;
+  background-color: #dff3e4;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s all ease;
+}
+
+.update--password a,
+.delete--password a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.update--password button:hover,
+.delete--password button:hover {
+  background-color: #222725;
+  color: #dff3e4;
+  transform: translateY(-2px);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.update--password button:disabled,
+.delete--password button:disabled {
+  user-select: none;
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.delete--password button:hover {
+  background-color: #d9534f;
+  color: #222725;
+  font-weight: 700;
+}
+
+.update--password button:active,
+.delete--password button:active {
+  transform: translateY(2px);
+}
+
+.close {
+  width: 15px;
+  opacity: 0.5;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
+  transition: 0.2s all ease;
+}
+
+.close:hover {
+  filter: none;
+}
+
+.hiddenPass {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  user-select: none;
 }
 
 @media (max-width: 1024px) {

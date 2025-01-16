@@ -13,6 +13,7 @@
 
     <link rel="icon" href="/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="/styles.css" />
+    <script src="/movieScripts.js" defer></script>
   </head>
   <body>
     <section class="single--cont">
@@ -33,6 +34,22 @@
         <p><span class="bold">Stock:</span> <%=movie.stock%></p>
       </div>
       <a class="single--back" href="/manage">Go Back</a>
+      <img class="single--edit" src="/edit.png" alt="Edit movie" />
+      <img class="single--delete" src="/delete.png" alt="Delete movie" />
+      <div class="update--password hiddenPass">
+        <h2>Enter Admin Password</h2>
+        <form action="/update" method="GET">
+          <input placeholder="password" class="admin--input" type="text" />
+          <button disabled><a href="/update/id/<%=movie.id%>">Enter</a></button>
+          <img class="close" src="/close.png" alt="Close" />
+        </form>
+      </div>
+      <div class="delete--password hiddenPass">
+        <h2>Enter Admin Password</h2>
+        <input type="text" placeholder="password" />
+        <button disabled>Delete Movie</button>
+        <img class="close" src="/close.png" alt="Close" />
+      </div>
     </section>
   </body>
 </html>
