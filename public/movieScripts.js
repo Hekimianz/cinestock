@@ -14,26 +14,18 @@ document.querySelector(".single--delete").addEventListener("click", () => {
 
 document.querySelectorAll(".close").forEach((node) =>
   node.addEventListener("click", () => {
-    if (node.parentElement.classList[0]) {
-      node.parentElement.classList.add("hiddenPass");
-    } else {
-      node.parentElement.parentElement.classList.add("hiddenPass");
-    }
+    node.parentElement.parentElement.classList.add("hiddenPass");
   })
 );
 
-updatePass.addEventListener("input", (e) => {
-  if (e.target.value == pass) {
-    updateBtn.removeAttribute("disabled");
-  } else {
-    updateBtn.disabled = true;
-  }
-});
-
-deletePass.addEventListener("input", (e) => {
-  if (e.target.value == pass) {
-    deleteBtn.removeAttribute("disabled");
-  } else {
-    deleteBtn.disabled = true;
+document.addEventListener("DOMContentLoaded", function () {
+  const errorNotification = document.querySelector(".error--notification");
+  const errorText = errorNotification.querySelector("p");
+  console.log(errorText.innerHTML);
+  if (errorNotification && errorText.innerHTML.length > 0) {
+    errorNotification.classList.add("show");
+    setTimeout(() => {
+      errorNotification.classList.remove("show");
+    }, 3000);
   }
 });
