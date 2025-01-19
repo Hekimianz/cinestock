@@ -90,7 +90,7 @@ To get started with this project, follow the instructions below:
 
    ```bash
 
-   npm start
+   node app.js
 
    ```
 
