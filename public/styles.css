@@ -122,7 +122,8 @@ header input {
 }
 
 .search--btn,
-.filter--btn {
+.filter--btn,
+.add--btn {
   width: 25px;
   height: 25px;
   cursor: pointer;
@@ -137,13 +138,15 @@ header input {
 }
 
 .search--btn:hover,
-.filter--btn:hover {
+.filter--btn:hover,
+.add--btn:hover {
   background-color: #c8dacc;
   transform: translateY(-2px);
 }
 
 .search--btn:active,
-.filter--btn:active {
+.filter--btn:active,
+.add--btn:active {
   transform: translateY(2px);
   background-color: #b1c1b4;
 }
@@ -151,6 +154,10 @@ header input {
 .search--btn img,
 .filter--btn img {
   height: 80%;
+}
+
+.add--icon {
+  width: 100%;
 }
 
 .items--cont {
@@ -350,7 +357,8 @@ header input {
 }
 
 .update--password,
-.delete--password {
+.delete--password,
+.new--password {
   background-color: #3e1cad;
   color: #dff3e4;
   position: absolute;
@@ -363,6 +371,7 @@ header input {
   gap: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   transition: 0.2s all ease;
+  z-index: 1000;
 }
 
 .update--password form,
@@ -375,7 +384,8 @@ header input {
 }
 
 .update--password input,
-.delete--password input {
+.delete--password input,
+.new--password input {
   background-color: #dff3e4;
   border: none;
   border-radius: 2px;
@@ -383,7 +393,8 @@ header input {
 }
 
 .update--password button,
-.delete--password button {
+.delete--password button,
+.new--password button {
   padding: 0.3rem 1rem;
   background-color: #dff3e4;
   border: none;
@@ -400,7 +411,8 @@ header input {
 }
 
 .update--password button:hover,
-.delete--password button:hover {
+.delete--password button:hover,
+.new--password button:hover {
   background-color: #222725;
   color: #dff3e4;
   transform: translateY(-2px);
@@ -408,7 +420,8 @@ header input {
 }
 
 .update--password button:disabled,
-.delete--password button:disabled {
+.delete--password button:disabled,
+.new--password button:disabled {
   user-select: none;
   pointer-events: none;
   cursor: not-allowed;
@@ -525,6 +538,59 @@ form:has(.update--btn) select {
   transform: translateY(2px);
 }
 
+.new--cont {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  height: 90%;
+  margin-top: 20px;
+  min-width: 200px;
+  width: 80%;
+  max-width: 500px;
+}
+
+#new--form {
+  background-color: #dff3e4;
+  color: #222725;
+  padding: 2rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.tags--label {
+  align-self: flex-start;
+}
+
+.break {
+  background-color: black;
+  height: 1px;
+  width: 100%;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.tags--cont {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.tags--cont {
+  font-weight: 500;
+}
+
+.tag--field {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 @keyframes slideDown {
   from {
     transform: translateY(-100px);
@@ -574,6 +640,13 @@ form:has(.update--btn) select {
   .movie--image {
     height: 150px;
   }
+
+  .search--form {
+    margin-right: auto;
+  }
+  .filter--btn {
+    margin-right: 10px;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -594,5 +667,12 @@ form:has(.update--btn) select {
 
   .movie--image {
     height: 200px;
+  }
+
+  .search--form {
+    margin-right: auto;
+  }
+  .filter--btn {
+    margin-right: 10px;
   }
 }

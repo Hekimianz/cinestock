@@ -32,7 +32,9 @@ async function getMovieByName(name) {
 
 async function getAllTags() {
   try {
-    const { rows } = await pool.query("SELECT name FROM tags ORDER BY name;");
+    const { rows } = await pool.query(
+      "SELECT id, name FROM tags ORDER BY name;"
+    );
     return rows;
   } catch (err) {
     console.error("Error fetching tag types:", err);
@@ -147,6 +149,38 @@ async function deleteMovie(id) {
   }
 }
 
+async function addMovie(movieData) {
+  try {
+    const movieValues = [
+      movieData.title,
+      movieData.stock,
+      movieData.image,
+      movieData.genre,
+      movieData.section,
+      movieData.supplier,
+    ];
+    const movieQuery = `INSERT INTO movies (title, stock, image_url, genre_id, section_id, supplier_id) 
+     VALUES ($1, $2, $3, $4, $5, $6)
+     RETURNING id;
+    `;
+
+    const result = await pool.query(movieQuery, movieValues);
+    const movieId = result.rows[0].id;
+
+    const tagQuery = `
+  INSERT INTO movie_tags (movie_id, tag_id)
+  VALUES ${movieData.tags.map((_, index) => `($1, $${index + 2})`).join(", ")}
+  `;
+
+    const tagValues = [movieId, ...movieData.tags];
+    await pool.query(tagQuery, tagValues);
+    return { id: movieId };
+  } catch (error) {
+    console.error("Error adding moie:", error.message);
+    throw error;
+  }
+}
+
 module.exports = {
   getAllMovies,
   getMovieByName,
@@ -157,4 +191,6 @@ module.exports = {
   getAllSections,
   getAllSuppliers,
   updateMovie,
+  addMovie,
+  deleteMovie,
 };

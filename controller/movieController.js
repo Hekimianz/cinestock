@@ -75,7 +75,7 @@ exports.deleteMovie = [
         errorMsg: errors.array()[0].msg,
       });
     }
-    console.log("Deleted movie");
+    await db.deleteMovie(id);
     res.redirect("/manage");
   },
 ];
@@ -119,3 +119,38 @@ exports.updateMovie = [
     }
   },
 ];
+
+exports.newMovieRender = async (req, res) => {
+  try {
+    const genres = await db.getAllGenres();
+    const sections = await db.getAllSections();
+    const suppliers = await db.getAllSuppliers();
+    const tags = await db.getAllTags();
+    console.log(tags);
+    res.render("new", {
+      title: "New Movie",
+      genres: genres,
+      sections: sections,
+      suppliers: suppliers,
+      tags: tags,
+    });
+  } catch (err) {
+    console.error("Error fetching details:", err);
+  }
+};
+
+exports.newMoviePost = async (req, res) => {
+  try {
+    const movieData = req.body;
+    console.log(req.body);
+    const tags = Object.keys(movieData)
+      .filter((key) => movieData[key] === "on")
+      .map(Number);
+    movieData.tags = tags;
+    const result = await db.addMovie(movieData);
+    res.redirect(`/movie/id/${result.id}`);
+  } catch (err) {
+    console.error("Failed to add movie:", err);
+    res.status(500).send("Failed to add movie");
+  }
+};
