@@ -2,7 +2,7 @@
 
 
 
-CineStock is a movie management web app created to practice SQL and Node.js app development. This project aims to provide a platform for users to browse and manage a collection of movies, using a database to store movie data and perform CRUD operations. It was built using Node.js and SQL to reinforce concepts related to databases and backend development.
+CineStock is a movie management web app created to practice SQL, Node.js app development, and the MVC (Model-View-Controller) architecture. This project aims to provide a platform for users to browse and manage a collection of movies, using a database to store movie data and perform CRUD operations. It was built using Node.js, SQL, and the MVC pattern to reinforce concepts related to databases, backend development, and the separation of concerns in web applications.
 
 
 
@@ -17,6 +17,8 @@ CineStock is a movie management web app created to practice SQL and Node.js app 
 - SQL database integration for storing movie information.
 
 - Use of Node.js with Express for backend routing.
+
+- MVC architecture for better structure and maintainability.
 
 - Simple and responsive front-end design.
 
@@ -33,6 +35,8 @@ CineStock is a movie management web app created to practice SQL and Node.js app 
 - **SQL (MySQL or PostgreSQL)**: Database to store movie data.
 
 - **EJS**: Templating engine for dynamic HTML rendering.
+
+- **MVC Architecture**: Separation of concerns into Model, View, and Controller for better code organization.
 
 
 
@@ -60,7 +64,7 @@ To get started with this project, follow the instructions below:
 
    cd cinestock
 
-  ```
+   ```
 
 
 
@@ -103,9 +107,5 @@ To get started with this project, follow the instructions below:
 
 
 Feel free to fork this repository, create issues, and submit pull requests. Contributions to improve the project are always welcome!
-
-
-
-
 
 
